@@ -19,6 +19,7 @@ public class App extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("LoginScene.fxml"));
         stage.setScene(new Scene(root));
         stage.setTitle("Serenity");
+        stage.setResizable(false);
         stage.show();
     }
 }

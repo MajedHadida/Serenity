@@ -1,19 +1,26 @@
+import java.io.IOException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
 
+
 public class MenuController {
-    //testing change
+
+
     final ObservableList<String> THEMES = FXCollections.observableArrayList("Dark","Light");
     @FXML
     private ComboBox<String> themeList;
     @FXML
     private AnchorPane background;
+    @FXML
+    private TabPane fullBackground;
 
 
     @FXML
@@ -21,6 +28,8 @@ public class MenuController {
         themeList.setItems(THEMES);
         themeList.setValue("Light");
     }
+
+
 
     public void changeTheme(){
         String theme = themeList.getValue();
