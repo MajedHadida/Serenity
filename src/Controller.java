@@ -10,6 +10,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -36,6 +38,9 @@ public class Controller {
     private PasswordField password;
     @FXML
     private Label incorrectLogin;
+    @FXML
+    private CheckBox guest;
+    private boolean guestLogin;
 
 
     public void switchToLogin(ActionEvent event) throws IOException{
@@ -49,7 +54,7 @@ public class Controller {
 
 
     public void switchToMainMenu(ActionEvent event) throws IOException{
-        if (checkLogin()){
+        if (checkLogin() || guestLogin){
             root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
             stage = (Stage)(((Node)event.getSource()).getScene().getWindow());
             scene = new Scene(root);
@@ -62,16 +67,24 @@ public class Controller {
     }
 
 
-    @FXML
-    public void initialize() {
-
-    }
-
     public boolean checkLogin(){
         if  (username.getCharacters().toString().equals("username") && password.getCharacters().toString().equals("password")){
             return true;
         }
         return false;
+    }
+
+    public boolean enableGuest(){
+        if (guest.isSelected()){
+            username.setText("");
+            username.setEditable(false);
+            password.setText("");
+            password.setEditable(false);
+            return guestLogin = true;
+        }
+        username.setEditable(true);
+        password.setEditable(true);
+        return guestLogin = false;
     }
 
     public void playAudio(){
