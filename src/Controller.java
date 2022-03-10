@@ -10,7 +10,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -40,7 +39,8 @@ public class Controller {
     private Label incorrectLogin;
     @FXML
     private CheckBox guest;
-    private boolean guestLogin;
+    public static boolean guestLogin;
+    public static String currentUser;
 
 
     public void switchToLogin(ActionEvent event) throws IOException{
@@ -55,6 +55,7 @@ public class Controller {
 
     public void switchToMainMenu(ActionEvent event) throws IOException{
         if (checkLogin() || guestLogin){
+            currentUser = username.getCharacters().toString();
             root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
             stage = (Stage)(((Node)event.getSource()).getScene().getWindow());
             scene = new Scene(root);

@@ -6,13 +6,14 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17" fx:controller="MenuController">
+<TabPane fx:id="fullBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MenuController">
   <tabs>
     <Tab text="Main Menu">
          <content>
             <AnchorPane fx:id="background" prefHeight="200.0" prefWidth="200.0">
                <children>
                   <ComboBox fx:id="themeList" layoutX="461.0" layoutY="332.0" onAction="#changeTheme" prefHeight="25.0" prefWidth="125.0" promptText="Choose Theme" />
+                  <Label fx:id="welcomeMsg" layoutX="14.0" layoutY="349.0" text="Welcome back!" />
                </children>
             </AnchorPane>
          </content></Tab>
@@ -20,7 +21,7 @@
          <content>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Label layoutX="247.0" layoutY="177.0" text="Instructions go here" />
+                  <Label fx:id="instrcText" layoutX="247.0" layoutY="177.0" text="Instructions go here" />
                </children>
             </AnchorPane>
          </content></Tab>
