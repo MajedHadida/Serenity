@@ -3,10 +3,12 @@
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -27,6 +29,8 @@ public class MenuController {
     private Label welcomeMsg;
     @FXML
     private Label instrcText;
+    @FXML
+    private Button submitQ;
     //Question 1 ---------------------
     @FXML
     private Label question1;
@@ -72,6 +76,19 @@ public class MenuController {
     private RadioButton q5o2;
     @FXML
     private RadioButton q5o3;
+    //Toggle groups ------------------
+    @FXML
+    private ToggleGroup question1group;
+    @FXML
+    private ToggleGroup question2group;
+    @FXML
+    private ToggleGroup question3group;
+    @FXML
+    private ToggleGroup question4group;
+    @FXML
+    private ToggleGroup question5group;
+    public ToggleGroup[] questionGroups;
+
 
 
     @FXML
@@ -80,14 +97,46 @@ public class MenuController {
         themeList.setItems(THEMES);
         themeList.setValue("Light");
         if (!Controller.guestLogin){
-            welcomeMsg.setText("Welcome back, "+Controller.currentUser+"!");
+            welcomeMsg.setText("Welcome back, "+Controller.currentUser+"! You have logged in x times.");
         }else{
             welcomeMsg.setText("Welcome back!");
         }
-    
+        
+        initializeGroups();
+        
         
     }
 
+    //Inits groups of radio buttons and allocates into an array, so we can search this array later when the user attempts to answer all/some/none
+    public void initializeGroups(){
+        questionGroups = new ToggleGroup[5]; 
+        questionGroups[0] = question1group;
+        questionGroups[1] = question2group;
+        questionGroups[2] = question3group;
+        questionGroups[3] = question4group;
+        questionGroups[4] = question5group;
+
+    }
+
+    //Disables the button once the user has entered answers to all the questions
+    public void submitButton(){
+        System.out.println(questionGroups[0]);
+        boolean allAnswered = false;
+        for (int i = 0; i < questionGroups.length; i++) {
+            if (questionGroups[i].getSelectedToggle() != null){
+                allAnswered = true;
+            }else{
+                allAnswered = false;
+            }
+        }
+
+        if (allAnswered){
+            submitQ.setDisable(true);
+        }else{
+            System.out.println("User hasn't put an answer!");
+        }
+        
+    }
 
 
     public void changeTheme(){

@@ -15,16 +15,15 @@
          <content>
             <AnchorPane fx:id="background" prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <ComboBox fx:id="themeList" layoutX="461.0" layoutY="332.0" onAction="#changeTheme" prefHeight="25.0" prefWidth="125.0" promptText="Choose Theme" />
+                  <ComboBox fx:id="themeList" layoutX="461.0" layoutY="10.0" onAction="#changeTheme" prefHeight="25.0" prefWidth="125.0" promptText="Choose Theme" />
                   <Label fx:id="welcomeMsg" layoutX="14.0" layoutY="349.0" text="Welcome back!" />
-                  <Button layoutX="491.0" layoutY="14.0" mnemonicParsing="false" text="Login Progress" />
-                  <RadioButton fx:id="q1o1" layoutX="11.0" layoutY="39.0" mnemonicParsing="false" text="RadioButton">
+                  <RadioButton fx:id="q1o1" layoutX="13.0" layoutY="39.0" mnemonicParsing="false" text="RadioButton">
                      <toggleGroup>
                         <ToggleGroup fx:id="question1group" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="q1o2" layoutX="116.0" layoutY="39.0" mnemonicParsing="false" text="RadioButton" toggleGroup="$question1group" />
-                  <RadioButton fx:id="q1o3" layoutX="221.0" layoutY="39.0" mnemonicParsing="false" text="RadioButton" toggleGroup="$question1group" />
+                  <RadioButton fx:id="q1o2" layoutX="118.0" layoutY="39.0" mnemonicParsing="false" text="RadioButton" toggleGroup="$question1group" />
+                  <RadioButton fx:id="q1o3" layoutX="223.0" layoutY="39.0" mnemonicParsing="false" text="RadioButton" toggleGroup="$question1group" />
                   <RadioButton fx:id="q2o1" layoutX="14.0" layoutY="87.0" mnemonicParsing="false" text="RadioButton">
                      <toggleGroup>
                         <ToggleGroup fx:id="question2group" />
@@ -46,18 +45,19 @@
                   </RadioButton>
                   <RadioButton fx:id="q4o2" layoutX="119.0" layoutY="193.0" mnemonicParsing="false" text="RadioButton" toggleGroup="$question4group" />
                   <RadioButton fx:id="q4o3" layoutX="224.0" layoutY="193.0" mnemonicParsing="false" text="RadioButton" toggleGroup="$question4group" />
-                  <RadioButton fx:id="q5o1" layoutX="11.0" layoutY="247.0" mnemonicParsing="false" text="RadioButton">
+                  <RadioButton fx:id="q5o1" layoutX="12.0" layoutY="250.0" mnemonicParsing="false" text="RadioButton">
                      <toggleGroup>
                         <ToggleGroup fx:id="question5group" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="q5o2" layoutX="116.0" layoutY="247.0" mnemonicParsing="false" text="RadioButton" toggleGroup="$question5group" />
-                  <RadioButton fx:id="q5o3" layoutX="221.0" layoutY="247.0" mnemonicParsing="false" text="RadioButton" toggleGroup="$question5group" />
-                  <Label fx:id="question1" layoutX="11.0" layoutY="14.0" text="Question 1" />
+                  <RadioButton fx:id="q5o2" layoutX="117.0" layoutY="250.0" mnemonicParsing="false" text="RadioButton" toggleGroup="$question5group" />
+                  <RadioButton fx:id="q5o3" layoutX="222.0" layoutY="250.0" mnemonicParsing="false" text="RadioButton" toggleGroup="$question5group" />
+                  <Label fx:id="question1" layoutX="13.0" layoutY="14.0" text="Question 1" />
                   <Label fx:id="question2" layoutX="11.0" layoutY="63.0" text="Question 2" />
                   <Label fx:id="question3" layoutX="11.0" layoutY="116.0" text="Question 3" />
                   <Label fx:id="question4" layoutX="14.0" layoutY="169.0" text="Question 4" />
-                  <Label fx:id="question5" layoutX="14.0" layoutY="223.0" text="Question 5" />
+                  <Label fx:id="question5" layoutX="15.0" layoutY="226.0" text="Question 5" />
+                  <Button fx:id="submitQ" layoutX="476.0" layoutY="332.0" mnemonicParsing="false" onAction="#submitButton" text="Submit Questions" />
                </children>
             </AnchorPane>
          </content></Tab>
