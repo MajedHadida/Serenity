@@ -85,7 +85,8 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TextField alignment="TOP_LEFT" layoutX="14.0" layoutY="14.0" prefHeight="344.0" prefWidth="571.0" promptText="Dear journal...." />
+                  <TextField alignment="TOP_LEFT" layoutX="14.0" layoutY="14.0" prefHeight="326.0" prefWidth="571.0" promptText="Dear journal...." />
+                  <Button layoutX="279.0" layoutY="345.0" mnemonicParsing="false" text="Save" />
                </children></AnchorPane>
         </content>
       </Tab>
@@ -119,7 +120,7 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="breatheButton" layoutX="234.0" layoutY="157.0" mnemonicParsing="false" onAction="#timeBreathe" prefHeight="58.0" prefWidth="132.0" text="Breathe">
+                  <Button fx:id="breatheButton" layoutX="235.0" layoutY="157.0" mnemonicParsing="false" onAction="#timeBreathe" prefHeight="58.0" prefWidth="132.0" text="Breathe">
                      <font>
                         <Font name="System Bold" size="23.0" />
                      </font></Button>
@@ -129,6 +130,22 @@
                      </font>
                   </Label>
                   <Button fx:id="stopBreathing" layoutX="280.0" layoutY="316.0" mnemonicParsing="false" onAction="#stopBreathing" text="Stop" visible="false" />
+                  <Label fx:id="countdown" layoutX="293.0" layoutY="223.0" text="1" visible="false">
+                     <font>
+                        <Font size="29.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
+      <Tab text="Resources">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <ComboBox fx:id="universityOptions" layoutX="106.0" layoutY="10.0" onAction="#findResource" prefHeight="25.0" prefWidth="186.0" />
+                  <Label layoutX="14.0" layoutY="14.0" text="I am currently in" />
+                  <Label fx:id="resourcesText" alignment="TOP_CENTER" layoutX="42.0" layoutY="94.0" prefHeight="183.0" prefWidth="517.0" wrapText="true" />
                </children>
             </AnchorPane>
         </content>

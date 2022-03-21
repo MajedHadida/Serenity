@@ -28,8 +28,10 @@ public class MenuController {
 
 
     final ObservableList<String> THEMES = FXCollections.observableArrayList("Dark","Light");
-    final ObservableList<Integer> BREATHINGTIMES = FXCollections.observableArrayList(1,2,5);
+    final ObservableList<String> UNIVERSITIES = FXCollections.observableArrayList("Wilfrid Laurier University", "University of Waterloo");
     Timer timer = new Timer();
+    @FXML
+    private ComboBox<String> universityOptions;
     @FXML
     private ComboBox<String> themeList;
     @FXML
@@ -119,6 +121,11 @@ public class MenuController {
     private Label breatheInstrc;
     @FXML
     private Button stopBreathing;
+    @FXML
+    private Label countdown;
+
+    @FXML
+    private Label resourcesText;
 
     MediaPlayer mediaPlayer;
 
@@ -129,6 +136,7 @@ public class MenuController {
     public void initialize() {
         themeList.setItems(THEMES);
         themeList.setValue("Light");
+        universityOptions.setItems(UNIVERSITIES);
         if (!Controller.guestLogin){
             welcomeMsg.setText("Welcome back, "+Controller.currentUser+"! You have logged in x times.");
         }else{
@@ -269,38 +277,40 @@ public class MenuController {
                 mediaPlayer.play();
             }
         }); 
-
+        timer = new Timer();
         breatheButton.setVisible(false);
         breatheInstrc.setVisible(true);
         stopBreathing.setVisible(true);
+        countdown.setVisible(true);
         TimerTask task = new TimerTask(){
-            int phase = 1;
+            int seconds = 1;
+            Integer counter = 1;
             @Override
             public void run() {
                 Platform.runLater(() -> {
-                switch (phase){
-                    case 1:
+                    if (seconds >= 1 && seconds <= 4){
                         breatheInstrc.setText("Breathe in...");
-                        break;
-                    case 2:
+                    }else if(seconds >= 5 && seconds <= 8){
                         breatheInstrc.setText("Hold...");
-                        break;
-                    case 3:
+                    }else if(seconds >= 9 && seconds <= 12){
                         breatheInstrc.setText("Breathe out...");
-                        break;
-                    case 4:
+                    }else if(seconds >= 13 && seconds <= 16){
                         breatheInstrc.setText("Hold...");
-                        break;
+                    }
+                    countdown.setText(counter.toString());
+                seconds++;
+                counter++;
+                if (seconds > 16){
+                    seconds = 1;
                 }
-                phase++;
-                if (phase > 4){
-                    phase = 1;
+                if(counter > 4){
+                    counter = 1;
                 }
             });
             }
         };
         //Makes timer run every 4 seconds to constantly cycle through the 3 stages of breathing until user presses "Stop"
-        timer.scheduleAtFixedRate(task, 0, 4000);
+        timer.scheduleAtFixedRate(task, 0, 1000);
             
         
     }
@@ -311,12 +321,21 @@ public class MenuController {
         breatheButton.setVisible(true);
         breatheInstrc.setVisible(false);
         stopBreathing.setVisible(false);
+        countdown.setVisible(false);
         
         timer.cancel();
     }
 
     public void stopMusic(){
         mediaPlayer.stop();
+    }
+
+    public void findResource(){
+        if(universityOptions.getValue().equals("Wilfrid Laurier University")){
+            resourcesText.setText("Student Wellness Centre \n E: wellness@wlu.ca \n T: 519.884.0710 \n F: 519.340.1403");
+        }else{
+            resourcesText.setText("Campus Wellness \n E: hsforms@uwaterloo.ca \n Health Services at 519-888-4096 \n Counselling Services at 519-888-4567 ext. 42655 \n");
+        }
     }
 
 }
