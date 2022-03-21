@@ -8,6 +8,8 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -83,7 +85,7 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TextField layoutX="14.0" layoutY="14.0" prefHeight="344.0" prefWidth="571.0" />
+                  <TextField alignment="TOP_LEFT" layoutX="14.0" layoutY="14.0" prefHeight="344.0" prefWidth="571.0" promptText="Dear journal...." />
                </children></AnchorPane>
         </content>
       </Tab>
@@ -91,7 +93,25 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Button layoutX="64.0" layoutY="83.0" mnemonicParsing="false" onAction="#playAudio" text="Play" />
+                  <Button layoutX="74.0" layoutY="89.0" mnemonicParsing="false" onAction="#play1" text="Play" />
+                  <ImageView fitHeight="42.0" fitWidth="43.0" layoutX="72.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/note.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="42.0" fitWidth="43.0" layoutX="279.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/bird.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="42.0" fitWidth="43.0" layoutX="472.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/moon.png" />
+                     </image>
+                  </ImageView>
+                  <Button layoutX="281.0" layoutY="89.0" mnemonicParsing="false" onAction="#play2" text="Play" />
+                  <Button layoutX="474.0" layoutY="89.0" mnemonicParsing="false" onAction="#play3" text="Play" />
+                  <Button layoutX="280.0" layoutY="332.0" mnemonicParsing="false" onAction="#stopMusic" text="Stop" />
                </children></AnchorPane>
         </content>
       </Tab>
@@ -99,15 +119,16 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="breatheButton" layoutX="274.0" layoutY="173.0" mnemonicParsing="false" onAction="#timeBreathe" text="Breathe" />
+                  <Button fx:id="breatheButton" layoutX="234.0" layoutY="157.0" mnemonicParsing="false" onAction="#timeBreathe" prefHeight="58.0" prefWidth="132.0" text="Breathe">
+                     <font>
+                        <Font name="System Bold" size="23.0" />
+                     </font></Button>
                   <Label fx:id="breatheInstrc" layoutX="228.0" layoutY="166.0" text="Breathe in..." visible="false">
                      <font>
                         <Font size="28.0" />
                      </font>
                   </Label>
                   <Button fx:id="stopBreathing" layoutX="280.0" layoutY="316.0" mnemonicParsing="false" onAction="#stopBreathing" text="Stop" visible="false" />
-                  <ComboBox fx:id="breathingTimes" layoutX="218.0" layoutY="206.0" prefHeight="25.0" prefWidth="85.0" promptText="Choose" />
-                  <Label fx:id="minuteText" layoutX="307.0" layoutY="210.0" text="minutes" />
                </children>
             </AnchorPane>
         </content>

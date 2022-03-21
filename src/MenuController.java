@@ -21,6 +21,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 
 public class MenuController {
@@ -110,6 +111,7 @@ public class MenuController {
     public ToggleGroup[] questionGroups;
     public Button[] allButtons;
     public RadioButton[] allRadioButtons;
+    public Label[] allTexts;
     //Breathe Menu Objects
     @FXML
     private Button breatheButton;
@@ -135,6 +137,7 @@ public class MenuController {
         
         initializeGroups();
         initializeRadioButtons();
+        initializeTexts();
         
         
     }
@@ -174,6 +177,18 @@ public class MenuController {
         allRadioButtons[17] = q6o3;
 
     }
+    public void initializeTexts(){
+        allTexts = new Label[8];
+        allTexts[0] = welcomeMsg;
+        allTexts[1] = instrcText;
+        allTexts[2] = question1;
+        allTexts[3] = question2;
+        allTexts[4] = question3;
+        allTexts[5] = question4;
+        allTexts[6] = question5;
+        allTexts[7] = question6;
+
+    }
 
     //Disables the button once the user has entered answers to all the questions
     public void submitButton(){
@@ -183,6 +198,7 @@ public class MenuController {
                 allAnswered = true;
             }else{
                 allAnswered = false;
+                break;
             }
         }
 
@@ -200,54 +216,37 @@ public class MenuController {
          switch (theme){
             case "Dark":
                 fullBackground.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
-                //Can't really figure out how to make an array of all the labels and iterate through all of them and change colour through a for loop...
-                //Maybe fix this later?
                 for (int i = 0; i < allRadioButtons.length; i++) {
                     allRadioButtons[i].setTextFill(Color.WHITE);
                 }
-                welcomeMsg.setTextFill(Color.WHITE);
-                instrcText.setTextFill(Color.WHITE);
-                question1.setTextFill(Color.WHITE);
-                question2.setTextFill(Color.WHITE);
-                question3.setTextFill(Color.WHITE);
-                question4.setTextFill(Color.WHITE);
-                question5.setTextFill(Color.WHITE);
-                question6.setTextFill(Color.WHITE);
+                for (int i = 0; i < allTexts.length; i++) {
+                    allTexts[i].setTextFill(Color.WHITE);
+                }
                 break;
             case "Light":
                 fullBackground.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
-                //Can't really figure out how to make an array of all the labels and iterate through all of them and change colour through a for loop...
-                //Maybe fix this later?
-                welcomeMsg.setTextFill(Color.BLACK);
-                instrcText.setTextFill(Color.BLACK);
-                question1.setTextFill(Color.BLACK);
-                q1o1.setTextFill(Color.BLACK);
-                q1o2.setTextFill(Color.BLACK);
-                q1o3.setTextFill(Color.BLACK);
-                question2.setTextFill(Color.BLACK);
-                q2o1.setTextFill(Color.BLACK);
-                q2o2.setTextFill(Color.BLACK);
-                q2o3.setTextFill(Color.BLACK);
-                question3.setTextFill(Color.BLACK);
-                q3o1.setTextFill(Color.BLACK);
-                q3o2.setTextFill(Color.BLACK);
-                q3o3.setTextFill(Color.BLACK);
-                question4.setTextFill(Color.BLACK);
-                q4o1.setTextFill(Color.BLACK);
-                q4o2.setTextFill(Color.BLACK);
-                q4o3.setTextFill(Color.BLACK);
-                question5.setTextFill(Color.BLACK);
-                q5o1.setTextFill(Color.BLACK);
-                q5o2.setTextFill(Color.BLACK);
-                q5o3.setTextFill(Color.BLACK);
-                question6.setTextFill(Color.BLACK);
-
+                for (int i = 0; i < allRadioButtons.length; i++) {
+                    allRadioButtons[i].setTextFill(Color.BLACK);
+                }
+                for (int i = 0; i < allTexts.length; i++) {
+                    allTexts[i].setTextFill(Color.BLACK);
+                }
                 break;
             }
     }
 
-    public void playAudio(){
-        String musicFile = "music/";     // For example
+    public void play1(){
+        playAudio("calm.mp3");
+    }
+    public void play2(){
+        playAudio("birds.mp3");
+    }
+    public void play3(){
+        playAudio("meditation.mp3");
+    }
+
+    public void playAudio(String musicName){
+        String musicFile = "music/"+musicName;     // For example
         Media sound = new Media(new File(musicFile).toURI().toString());
         mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.play();
@@ -262,7 +261,14 @@ public class MenuController {
         String musicFile = "music/breathe.mp3";     // For example
         Media sound = new Media(new File(musicFile).toURI().toString());
         mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.setAutoPlay(true);
+        mediaPlayer.play();
+        mediaPlayer.setOnEndOfMedia(new Runnable() {
+            @Override
+            public void run() {
+                mediaPlayer.seek(Duration.ZERO);
+                mediaPlayer.play();
+            }
+        }); 
 
         breatheButton.setVisible(false);
         breatheInstrc.setVisible(true);
@@ -282,13 +288,14 @@ public class MenuController {
                     case 3:
                         breatheInstrc.setText("Breathe out...");
                         break;
+                    case 4:
+                        breatheInstrc.setText("Hold...");
+                        break;
                 }
                 phase++;
-                if (phase > 3){
+                if (phase > 4){
                     phase = 1;
                 }
-                
-                
             });
             }
         };
@@ -306,6 +313,10 @@ public class MenuController {
         stopBreathing.setVisible(false);
         
         timer.cancel();
+    }
+
+    public void stopMusic(){
+        mediaPlayer.stop();
     }
 
 }
