@@ -1,5 +1,4 @@
 
-import java.io.File;
 import java.io.IOException;
 
 import javafx.collections.FXCollections;
@@ -10,14 +9,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 public class Controller {
@@ -38,6 +36,8 @@ public class Controller {
     @FXML
     private Label incorrectLogin;
     @FXML
+    private Button registerButton;
+    @FXML
     private CheckBox guest;
     public static boolean guestLogin;
     public static String currentUser;
@@ -50,6 +50,12 @@ public class Controller {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
+    }
+
+    //This function is called when register account button is pressed.
+    public void registerAccount(){
+        // DO SOMETHING
+        System.out.println("test");
     }
 
 
@@ -81,19 +87,14 @@ public class Controller {
             username.setEditable(false);
             password.setText("");
             password.setEditable(false);
+            registerButton.setDisable(true);
             return guestLogin = true;
         }
+        registerButton.setDisable(false);
         username.setEditable(true);
         password.setEditable(true);
         return guestLogin = false;
     }
-
-    public void playAudio(){
-         String musicFile = "calm.mp3";     // For example
-         Media sound = new Media(new File(musicFile).toURI().toString());
-         MediaPlayer mediaPlayer = new MediaPlayer(sound);
-         mediaPlayer.play();
-     }
 
 
 }
