@@ -13,8 +13,12 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+
+import java.sql.*;
+
 
 public class Controller {
 
@@ -40,8 +44,18 @@ public class Controller {
     public static String currentUser;
 
 
+    @FXML 
+    public TextArea textArea;
+    //jdbc connection variables
+    private final String url = "jdbc:mysql://localhost:3306/serenity_db";
+    private final String user = "root";
+    private final String pass = "";
+    
+    public static int userid;
+    public static int logincount;
+
     public void switchToLogin(ActionEvent event) throws IOException{
-        root = FXMLLoader.load(getClass().getResource("loginScene.fxml"));
+        root = FXMLLoader.load(getClass().getResource("LoginScene.fxml"));
         stage = (Stage)(((Node)event.getSource()).getScene().getWindow());
         scene = new Scene(root);
         stage.setScene(scene);
@@ -52,7 +66,39 @@ public class Controller {
     //This function is called when register account button is pressed.
     public void registerAccount(){
         // DO SOMETHING
-        System.out.println("test");
+        String SQL = "INSERT INTO users(userName,password) "
+                + "VALUES(?,?)";
+
+        long userid = 0;
+
+        try (Connection conn = connect();
+                PreparedStatement pstmt = conn.prepareStatement(SQL,
+                Statement.RETURN_GENERATED_KEYS)) {
+
+            pstmt.setString(1, username.getText());
+            pstmt.setString(2, password.getText());
+
+            int affectedRows = pstmt.executeUpdate();
+            // check the affected rows 
+            if (affectedRows > 0) {
+                // get the ID back
+                try (ResultSet rs = pstmt.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        userid = rs.getLong(1);
+                    
+                    }
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        System.out.print(userid);
+        return;
+    // }
+        
     }
 
 
@@ -72,10 +118,45 @@ public class Controller {
 
 
     public boolean checkLogin(){
-        if  (username.getCharacters().toString().equals("username") && password.getCharacters().toString().equals("password")){
-            return true;
+
+        String dbUsername = "";
+        String dbPassword = "";
+
+        userid=0;
+
+        try {
+            Connection connect = connect();
+        
+        //preparedstatement is used to avoid sql injections
+        PreparedStatement stmnt = (PreparedStatement) connect
+        .prepareStatement("Select username, password, id from users where userName=? and password=?");
+        stmnt.setString(1, username.getText());
+        stmnt.setString(2, password.getText());
+        ResultSet rs = stmnt.executeQuery();
+        
+        // Check Username and Password
+        while (rs.next()) {
+            dbUsername = rs.getString("username");
+            dbPassword = rs.getString("password");
+            userid = rs.getInt("id");
         }
-        return false;
+       
+        if (username.getText().equals(dbUsername) && password.getText().equals(dbPassword)) {
+            return true;
+        } else {
+            return false;
+        }
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+
+            e.printStackTrace();
+            return false;
+        }  
+    //     if  (username.getCharacters().toString().equals("username") && password.getCharacters().toString().equals("password")){
+    //         return true;
+    //     }
+    //     return false;
     }
 
     public boolean enableGuest(){
@@ -93,5 +174,8 @@ public class Controller {
         return guestLogin = false;
     }
 
+    public Connection connect() throws SQLException {
+        return DriverManager.getConnection(url, user, pass);
+    }
 
 }
