@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
@@ -22,8 +23,10 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+
 import javafx.util.Duration;
 
+import java.sql.*;
 
 public class MenuController {
 
@@ -41,6 +44,7 @@ public class MenuController {
     private TabPane fullBackground;
     @FXML
     private Label welcomeMsg;
+    
     @FXML
     private Label instrcText;
     @FXML
@@ -128,7 +132,7 @@ public class MenuController {
     @FXML
     private Label resourcesText;
     //Journaling menu
-    private TextArea journalText;
+    @FXML public TextField journalText;
     //Music Menu
     private Button playButton1;
     private Button playButton2;
@@ -137,7 +141,12 @@ public class MenuController {
 
     MediaPlayer mediaPlayer;
 
+    
 
+    //jdbc connection variables
+    private final String url = "jdbc:mysql://localhost:3306/serenity_db";
+    private final String user = "root";
+    private final String pass = "";
 
 
     @FXML
@@ -340,6 +349,40 @@ public class MenuController {
 
     public void saveJournal(){
         //TO DO
+
+        String SQL = "INSERT INTO journals(id,entry) "
+                + "VALUES(?,?)";
+
+        long userid = 0; 
+
+        try (Connection conn = connect();
+                PreparedStatement prepStatement = conn.prepareStatement(SQL,
+                Statement.RETURN_GENERATED_KEYS)) {
+            
+            prepStatement.setInt(1, Controller.userid);
+            prepStatement.setString(2, ""+journalText.getText());
+            // 
+
+            int rows = prepStatement.executeUpdate();
+            
+            if (rows > 0) {
+               
+                try (ResultSet rs = prepStatement.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        userid = rs.getLong(1);
+                    
+                    }
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        //disable the textfield or button after pressed, and a popup message that its been saved
+       
+
+
     }
 
     public void findResource(){
@@ -350,4 +393,7 @@ public class MenuController {
         }
     }
 
+    public Connection connect() throws SQLException {
+        return DriverManager.getConnection(url, user, pass);
+    }
 }
