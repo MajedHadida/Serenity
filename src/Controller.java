@@ -1,8 +1,6 @@
 
 import java.io.IOException;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +18,6 @@ import javafx.stage.Stage;
 
 public class Controller {
 
-    final ObservableList<String> THEMES = FXCollections.observableArrayList("Dark","Light");
     
     private Stage stage;
     private Scene scene;

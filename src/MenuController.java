@@ -14,6 +14,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
@@ -123,9 +124,16 @@ public class MenuController {
     private Button stopBreathing;
     @FXML
     private Label countdown;
-
+    //Resources menu
     @FXML
     private Label resourcesText;
+    //Journaling menu
+    private TextArea journalText;
+    //Music Menu
+    private Button playButton1;
+    private Button playButton2;
+    private Button playButton3;
+    private Button stopMusicButton;
 
     MediaPlayer mediaPlayer;
 
@@ -328,6 +336,10 @@ public class MenuController {
 
     public void stopMusic(){
         mediaPlayer.stop();
+    }
+
+    public void saveJournal(){
+        //TO DO
     }
 
     public void findResource(){
