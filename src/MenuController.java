@@ -155,7 +155,40 @@ public class MenuController {
         themeList.setValue("Light");
         universityOptions.setItems(UNIVERSITIES);
         if (!Controller.guestLogin){
-            welcomeMsg.setText("Welcome back, "+Controller.currentUser+"! You have logged in x times.");
+
+            
+            int count=0;
+
+            try {
+                Connection connect = connect();
+            
+            //preparedstatement is used to avoid sql injections
+            PreparedStatement stmnt = (PreparedStatement) connect
+            .prepareStatement("Select loginCount from counter where id=?");
+                
+            stmnt.setInt(1, Controller.userid);
+            ResultSet rs = stmnt.executeQuery();
+            
+            // Check Username and Password
+            while (rs.next()) {
+                count=rs.getInt("loginCount");
+            }
+            welcomeMsg.setText("Welcome back, "+Controller.currentUser+"! You have logged in "+count+" times.");
+            count++;
+                PreparedStatement stmnt1 = (PreparedStatement) connect
+                .prepareStatement("UPDATE counter SET loginCount=? WHERE id=?");
+                stmnt1.setInt(1, count);
+                stmnt1.setInt(2, Controller.userid);
+                stmnt1.executeUpdate();
+            
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+
+                e.printStackTrace();
+                
+            }  
+            
+
         }else{
             welcomeMsg.setText("Welcome back!");
         }

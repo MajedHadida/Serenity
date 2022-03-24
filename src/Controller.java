@@ -68,21 +68,23 @@ public class Controller {
         // DO SOMETHING
         String SQL = "INSERT INTO users(userName,password) "
                 + "VALUES(?,?)";
-
+        String SQL1 = "INSERT INTO counter(id,loginCount) "
+        + "VALUES(?,?)";
         long userid = 0;
 
-        try (Connection conn = connect();
-                PreparedStatement pstmt = conn.prepareStatement(SQL,
+        try (Connection connection = connect();
+                PreparedStatement prepStatement = connection.prepareStatement(SQL,
                 Statement.RETURN_GENERATED_KEYS)) {
 
-            pstmt.setString(1, username.getText());
-            pstmt.setString(2, password.getText());
-
-            int affectedRows = pstmt.executeUpdate();
+                prepStatement.setString(1, username.getText());
+                prepStatement.setString(2, password.getText());
+                
+                
+            int affectedRows = prepStatement.executeUpdate();
             // check the affected rows 
             if (affectedRows > 0) {
                 // get the ID back
-                try (ResultSet rs = pstmt.getGeneratedKeys()) {
+                try (ResultSet rs = prepStatement.getGeneratedKeys()) {
                     if (rs.next()) {
                         userid = rs.getLong(1);
                     
@@ -95,9 +97,24 @@ public class Controller {
             System.out.println(ex.getMessage());
         }
 
-        System.out.print(userid);
+        try (Connection connection = connect();
+                PreparedStatement prepStatement = connection.prepareStatement(SQL1,
+                Statement.RETURN_GENERATED_KEYS)) {
+
+                prepStatement.setLong(1, userid);
+                prepStatement.setInt(2, 0);
+                
+                
+                prepStatement.executeUpdate();
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        
+        // System.out.print(userid);
         return;
-    // }
+ 
         
     }
 
