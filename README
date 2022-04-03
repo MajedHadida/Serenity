@@ -1,16 +1,16 @@
-1. download vs code 
-2. download javafx https://download2.gluonhq.com/openjfx/18/openjfx-18_linux-x64_bin-sdk.zip 
-3. in the reference libraries add all javafx .jar files from javafx lib folder 
-4. go to https://downloads.mysql.com/archives/c-j/ select platform independent download the 2nd file 
-5. Export the mysql-connector-java-8.0.27 folder and then go back to vs code and down to referenced libraries under java projects press "+" and add the mysql-connector-java-8.0.27.jar file inside the mysql-connector-java-8.0.27 folder to it 
-5. sign up on https://www.db4free.net/signup.php 
-6. follow the redirect link in the email 6. make a new database and name it serenity_db 
-7. import the serenity_db file provided 
-8. download xampp for your OS https://www.apachefriends.org/index.html 
-9. once downloaded go to the downloaded folder and launch xampp-control.exe 
-10. Press start on the Apache and the MySQL modules 
-11. go to https://downloads.mysql.com/archives/c-j/ select platform independent download the 2nd file 
-12. go back to vs code and down to referenced libraries under java projects press "+" and add the mysql-connector-java-8.0.27.jar file to it
+1. Download VS Code
+2. Download javafx (17.0.2)
+3. In the reference libraries add all javafx .jar files from javafx lib folder 
+4. Go to https://downloads.mysql.com/archives/c-j/ select platform independent download the 2nd file 
+5. Export the mysql-connector-java-8.0.27 folder and then go back to vs code and down to referenced libraries under java projects press "+" and add the mysql-connector-java8.0.27.jar file inside the mysql-connector-java-8.0.27 folder to it
+6. Download xampp for your OS https://www.apachefriends.org/index.html 
+7. Once downloaded go to the downloaded folder and launch xampp-control.exe
+8. Click start on the Apache and the MySQL modules 
+9. Click Admin in front of the MySQL module. This will open the MySQL workspace for the local machine
+10. Click Import. This will open a window where the provided SQL file can be uploaded
+11. Select the provided serenity_db file and click Go
+12. In the VS Code window open the SRC folder for Serenity and inside the app.java file 
+click Run
 
 Portions that are not implemented:
 1. Activity suggestions
